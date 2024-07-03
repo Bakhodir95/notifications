@@ -63,7 +63,7 @@ class LocalNotificationsService {
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
     // android va IOS uchun sozlamalarni to'g'irlaymiz
-    const androidInit = AndroidInitializationSettings("notification_icon");
+    const androidInit = AndroidInitializationSettings("image");
     final iosInit = DarwinInitializationSettings(
       notificationCategories: [
         DarwinNotificationCategory(
