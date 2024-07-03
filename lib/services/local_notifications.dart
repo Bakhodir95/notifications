@@ -140,11 +140,11 @@ class LocalNotificationsService {
     );
   }
 
-  static void cancelNotification() async {
+  static void cancelevery2HOursNotification() async {
     _localNotification.cancel(0);
   }
 
-  static void showScheduledNotification() async {
+  static void everyDayMotivation() async {
     // android va ios uchun qanday
     // turdagi xabarlarni ko'rsatish kerakligni aytamiz
     const androidDetails = AndroidNotificationDetails(
@@ -168,20 +168,30 @@ class LocalNotificationsService {
     );
 
     String motivation = await GetDailyMotivation.everyDayMotivation();
-    await _localNotification.zonedSchedule(0, "First Motivation", motivation, LocalNotificationsService()., notificationDetails, uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation
-    )
+    await _localNotification.zonedSchedule(
+        1,
+        "First Motivation",
+        motivation,
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+        notificationDetails,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
 
     // show funksiyasi orqali darhol xabarnoma ko'rsatamiz
-    await _localNotification.zonedSchedule(
-      0,
-      "Birinchi NOTIFICATION",
-      "Salom sizga \$1,000,000 pul tushdi. SMS kodni ayting!",
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-      notificationDetails,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      payload: "Salom",
-    );
+    // await _localNotification.zonedSchedule(
+    //   0,
+    //   "Birinchi NOTIFICATION",
+    //   "Salom sizga \$1,000,000 pul tushdi. SMS kodni ayting!",
+    //   tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+    //   notificationDetails,
+    //   uiLocalNotificationDateInterpretation:
+    //       UILocalNotificationDateInterpretation.absoluteTime,
+    //   payload: "Salom",
+    // );
+  }
+
+  static void cancelEverydayNotification() async {
+    _localNotification.cancel(1);
   }
 
   static void showPeriodicNotification() async {
