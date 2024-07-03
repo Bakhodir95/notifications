@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notifications/services/local_notifications.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotifications.requestPermission();
   runApp(MyNotification());
 }
 
