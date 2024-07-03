@@ -3,7 +3,9 @@ import 'package:notifications/services/local_notifications.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationsService.requestPermission();
   await LocalNotificationsService.start();
+
   runApp(const MyApp());
 }
 
@@ -47,19 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               TextButton.icon(
                   onPressed: () {
-                    // LocalNotifications.showNotification();
+                    LocalNotificationsService.showNotification();
                   },
                   icon: const Icon(Icons.message),
-                  label: const Text("Oddiy Xabarnoma")),
+                  label: const Text("ShowNotifications")),
               TextButton.icon(
                   onPressed: () {
-                    // LocalNotificationsService.showScheduledNotification();
+                    LocalNotificationsService.showScheduledNotification();
                   },
                   icon: const Icon(Icons.message),
                   label: const Text("Rejali Xabarnoma")),
               TextButton.icon(
                   onPressed: () {
-                    // LocalNotificationsService.showPeriodicNotification();
+                    LocalNotificationsService.showPeriodicNotification();
                   },
                   icon: const Icon(Icons.message),
                   label: const Text("Davomiy Xabarnoma")),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:notifications/services/daily_motivation.dart';
 import 'package:timezone/data/latest_all.dart' as tzl;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -103,7 +104,7 @@ class LocalNotificationsService {
     await _localNotification.initialize(notificationInit);
   }
 
-  static void showNotification() async {
+  static void repetEvery2Hours() async {
     // android va ios uchun qanday
     // turdagi xabarlarni ko'rsatish kerakligni aytamiz
     const androidDetails = AndroidNotificationDetails(
@@ -116,12 +117,12 @@ class LocalNotificationsService {
       actions: [
         AndroidNotificationAction('id_1', 'Action 1'),
         AndroidNotificationAction('id_2', 'Action 2'),
-        AndroidNotificationAction('id_3', 'Action 3'),
+
       ],
     );
 
     const iosDetails = DarwinNotificationDetails(
-      sound: "notification.aiff",
+      // sound: "notification.aiff",
       categoryIdentifier: "demoCategory",
     );
 
@@ -133,8 +134,8 @@ class LocalNotificationsService {
     // show funksiyasi orqali darhol xabarnoma ko'rsatamiz
     await _localNotification.show(
       0,
-      "Birinchi NOTIFICATION",
-      "Salom sizga \$1,000,000 pul tushdi. SMS kodni ayting!",
+      "Take a break Please!",
+      "Stand up Guys!!!",
       notificationDetails,
     );
   }
@@ -143,23 +144,27 @@ class LocalNotificationsService {
     // android va ios uchun qanday
     // turdagi xabarlarni ko'rsatish kerakligni aytamiz
     const androidDetails = AndroidNotificationDetails(
-      "goodChannelId",
-      "goodChannelName",
-      importance: Importance.max,
-      priority: Priority.max,
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound("notification"),
-      ticker: "Ticker",
-    );
+        "goodChannelId", "goodChannelName",
+        importance: Importance.max,
+        priority: Priority.max,
+        playSound: true,
+        sound: RawResourceAndroidNotificationSound("notification"),
+        ticker: "Ticker",
+        actions: [
+          AndroidNotificationAction("id_1", "Action 1"),
+          AndroidNotificationAction("id_2", "Action 2")
+        ]);
 
     const iosDetails = DarwinNotificationDetails(
-      sound: "notification.aiff",
-    );
+        sound: "notification.aiff", categoryIdentifier: "demo");
 
     const notificationDetails = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
     );
+
+    String motivation = await GetDailyMotivation.everyDayMotivation();
+    await _localNotification.zonedSchedule(0, "First Motivation", motivation, LocalNotificationsService()., notificationDetails, uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation)
 
     // show funksiyasi orqali darhol xabarnoma ko'rsatamiz
     await _localNotification.zonedSchedule(
