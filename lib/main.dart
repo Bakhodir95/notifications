@@ -49,10 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               TextButton.icon(
                   onPressed: () {
-                    LocalNotificationsService.showNotification();
+                    LocalNotificationsService.repetEvery2Hours();
                   },
                   icon: const Icon(Icons.message),
-                  label: const Text("ShowNotifications")),
+                  label: const Text("Pomodoro")),
+              TextButton.icon(
+                  onPressed: () {
+                    LocalNotificationsService.cancelNotification();
+                  },
+                  icon: const Icon(Icons.message),
+                  label: const Text("cancelNotification")),
               TextButton.icon(
                   onPressed: () {
                     LocalNotificationsService.showScheduledNotification();

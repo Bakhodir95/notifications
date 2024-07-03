@@ -117,7 +117,6 @@ class LocalNotificationsService {
       actions: [
         AndroidNotificationAction('id_1', 'Action 1'),
         AndroidNotificationAction('id_2', 'Action 2'),
-
       ],
     );
 
@@ -132,12 +131,17 @@ class LocalNotificationsService {
     );
 
     // show funksiyasi orqali darhol xabarnoma ko'rsatamiz
-    await _localNotification.show(
+    await _localNotification.periodicallyShowWithDuration(
       0,
       "Take a break Please!",
       "Stand up Guys!!!",
+      const Duration(minutes: 1),
       notificationDetails,
     );
+  }
+
+  static void cancelNotification() async {
+    _localNotification.cancel(0);
   }
 
   static void showScheduledNotification() async {
@@ -164,7 +168,8 @@ class LocalNotificationsService {
     );
 
     String motivation = await GetDailyMotivation.everyDayMotivation();
-    await _localNotification.zonedSchedule(0, "First Motivation", motivation, LocalNotificationsService()., notificationDetails, uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation)
+    await _localNotification.zonedSchedule(0, "First Motivation", motivation, LocalNotificationsService()., notificationDetails, uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation
+    )
 
     // show funksiyasi orqali darhol xabarnoma ko'rsatamiz
     await _localNotification.zonedSchedule(
